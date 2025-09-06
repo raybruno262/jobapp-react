@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8081/api';
+// const API_BASE_URL = 'http://localhost:8081/api';
 
+const API_BASE_URL = 'https://jobapp-backend-xyz.onrender.com/api';
 // Helper function for error handling
 const handleApiError = (error, context) => {
   console.error(`Error ${context}:`, {

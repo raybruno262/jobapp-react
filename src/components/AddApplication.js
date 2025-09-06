@@ -10,7 +10,7 @@ const AddApplication = ({ open, onClose, onSuccess }) => {
     }, [open]);
 
     const fetchJobListings = async () => {
-        try { const jobData = await getAllJobListings(); setJobs(jobData); } 
+        try { const jobData = await getAllJobListings(); setJobs(jobData); }
         catch (error) { console.error("Failed to fetch job listings:", error); setError('Failed to load job listings. Please try again later.'); }
     };
 
@@ -18,19 +18,21 @@ const AddApplication = ({ open, onClose, onSuccess }) => {
         const jobId = e.target.value; setSelectedJobId(jobId); setError(''); setSuccess('');
         const selectedJob = jobs.find(job => job.jobId === jobId); if (!selectedJob) return;
         setSelectedJobTitle(selectedJob.title); setIsChecking(true);
-        try { const hasApplied = await checkIfApplied(jobId); setAlreadyApplied(hasApplied); if (hasApplied) { setError(`You've already applied to "${selectedJob.title}"`); } } 
-        catch (error) { if (error.message.includes('login')) { setError(error.message); } console.warn('Application check warning:', error.message); } 
+        try { const hasApplied = await checkIfApplied(jobId); setAlreadyApplied(hasApplied); if (hasApplied) { setError(`You've already applied to "${selectedJob.title}"`); } }
+        catch (error) { if (error.message.includes('login')) { setError(error.message); } console.warn('Application check warning:', error.message); }
         finally { setIsChecking(false); }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault(); setIsSubmitting(true); setError(''); setSuccess('');
         if (!selectedJobId) { setError('Please select a job'); setIsSubmitting(false); return; }
-        try { await applyForJob(selectedJobId, {}); setSuccess(`Success! Your application for "${selectedJobTitle}" has been submitted.`); setAlreadyApplied(true); if (onSuccess) { onSuccess(); } setTimeout(() => onClose(), 2000); } 
-        catch (error) { console.error("Application error:", error);
-            if (error.response?.status === 400 && error.response.data === 'Already applied to this job') { setError('You have already applied to this job'); setAlreadyApplied(true); } 
-            else if (error.response?.status === 400) { setError(error.response.data || 'Invalid application data'); } 
-            else { setError(error.message || 'Failed to submit application. Please try again.'); } } 
+        try { await applyForJob(selectedJobId, {}); setSuccess(`Success! Your application for "${selectedJobTitle}" has been submitted.`); setAlreadyApplied(true); if (onSuccess) { onSuccess(); } setTimeout(() => onClose(), 2000); }
+        catch (error) {
+            console.error("Application error:", error);
+            if (error.response?.status === 400 && error.response.data === 'Already applied to this job') { setError('You have already applied to this job'); setAlreadyApplied(true); }
+            else if (error.response?.status === 400) { setError(error.response.data || 'Invalid application data'); }
+            else { setError(error.message || 'Failed to submit application. Please try again.'); }
+        }
         finally { setIsSubmitting(false); }
     };
 
@@ -39,13 +41,13 @@ const AddApplication = ({ open, onClose, onSuccess }) => {
             <Box sx={modalStyle}>
                 <IconButton aria-label="close" onClick={onClose} sx={{ position: 'absolute', right: 8, top: 8, color: '#9e9e9e', '&:hover': { color: '#4caf50' } }}><CloseIcon /></IconButton>
                 <Typography variant="h4" align="center" sx={modalTitleStyle}>Apply for Job</Typography>
-                
+
                 {error && <Alert severity="error" sx={{ mb: 2, width: '100%', bgcolor: '#2a2a2a', '& .MuiAlert-message': { color: alreadyApplied ? '#ff5252' : '#f5f5f5' }, '& .MuiAlert-icon': { color: alreadyApplied ? '#ff5252' : '#f5f5f5' } }}>
                     {error}{alreadyApplied && <Box sx={{ mt: 1, fontSize: '0.9rem', color: 'white' }}>You can view your application in "My Applications"</Box>}</Alert>}
-                
+
                 {success && <Alert severity="success" sx={{ mb: 2, width: '100%', bgcolor: '#1c1c1c', '& .MuiAlert-message': { color: '#f5f5f5' } }}>
                     {success}<Box sx={{ mt: 1, fontWeight: 'bold', color: '#f5f5f5' }}>We'll contact you if your application progresses.</Box></Alert>}
-                
+
                 <form onSubmit={handleSubmit}>
                     <FormControl fullWidth margin="normal" required sx={inputStyle}>
                         <InputLabel sx={{ color: '#9e9e9e' }}>Select Job</InputLabel>

@@ -14,8 +14,9 @@ const UserProfile = () => {
     const fetchProfile = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:8081/api/users/profile/current', { withCredentials: true });
-        setProfile(response.data);
+        // const response = await axios.get('http://localhost:8081/api/users/profile/current', { withCredentials: true });
+        const response = await axios.get('https://jobapp-spring.onrender.com/api/users/profile/current', { withCredentials: true });
+       
         setEditData(response.data);
       } catch (err) {
         setSnackbar({ open: true, message: err.response?.data?.message || err.message || 'Failed to fetch profile', severity: 'error' });

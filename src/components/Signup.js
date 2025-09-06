@@ -19,7 +19,8 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8081/api/users/jobseeker', user);
+            // await axios.post('http://localhost:8081/api/users/jobseeker', user);
+            await axios.post('https://jobapp-spring.onrender.com/api/users/jobseeker', user);
             setMessage('User Saved.');
             setUser({ fullname: '', username: '', email: '', password: '' });
         } catch (error) {

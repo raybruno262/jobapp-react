@@ -22,7 +22,9 @@ const ForgotPassword = () => {
         e.preventDefault();
         setMessage(null); setError(null);
         try {
-            await axios.post('http://localhost:8081/api/users/password/reset/otp', null, { params: { email, otpEmail } });
+            // await axios.post('http://localhost:8081/api/users/password/reset/otp', null, { params: { email, otpEmail } });
+            await axios.post('https://jobapp-spring.onrender.com/api/users/password/reset/otp', null, { params: { email, otpEmail } });
+          
             setMessage('Password reset OTP has been sent to your email.'); setOtpSent(true);
         } catch (error) {
             setError(error.response?.data?.message || 'Error sending password reset OTP');
