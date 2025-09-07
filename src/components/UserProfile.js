@@ -30,7 +30,9 @@ const UserProfile = () => {
   const handleSave = async () => {
     try {
       setLoading(true);
-      const response = await axios.put('http://localhost:8081/api/users/edit/profile', editData, { withCredentials: true });
+      const response = await axios.put('https://jobapp-spring.onrender.com/api/users/edit/profile', editData, { withCredentials: true });
+          //  const response = await axios.put('http://localhost:8081/api/users/edit/profile', editData, { withCredentials: true });
+      
       setProfile(response.data);
       setEditMode(false);
       setSnackbar({ open: true, message: 'Profile updated!', severity: 'success' });

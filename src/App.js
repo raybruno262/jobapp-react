@@ -84,7 +84,10 @@ const TopBar = ({ role, notificationsCount }) => {
 
     const handleLogout = async () => {
         try {
-            await axios.post(`http://localhost:8081/api/users/logout`, null, { withCredentials: true });
+            await axios.post(`https://jobapp-backend-xyz.onrender.com/api/users/logout`, null, { withCredentials: true });
+            //  await axios.post(`http://localhost:8081/api/users/logout`, null, { withCredentials: true });
+            
+
             localStorage.clear();
             sessionStorage.clear();
             delete axios.defaults.headers.common['Authorization'];

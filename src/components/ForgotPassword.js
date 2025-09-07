@@ -35,7 +35,10 @@ const ForgotPassword = () => {
     const handleResetPassword = async (e) => {
         e.preventDefault(); setError(null);
         try {
-            await axios.post('http://localhost:8081/api/users/password/reset', null, { 
+            // await axios.post('http://localhost:8081/api/users/password/reset', null, { 
+                   await axios.post('https://jobapp-spring.onrender.com/api/users/password/reset', null, { 
+                
+
                 params: { email, otpEmail, verificationCode, newPassword } 
             });
             setMessage('Password has been reset successfully.');
