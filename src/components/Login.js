@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { sendLoginOtp, verifyLoginOtp } from '../services/apiService';
+// import { sendLoginOtp, verifyLoginOtp } from '../services/apiService';
 import { Container, TextField, Button, Typography, Box, Alert, Link } from '@mui/material';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
@@ -21,39 +21,39 @@ const Login = ({ onLogin }) => {
         setState(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleSendOtp = async (e) => {
-        e.preventDefault();
-        setState(prev => ({ ...prev, message: null, error: null }));
+    // const handleSendOtp = async (e) => {
+    //     e.preventDefault();
+    //     setState(prev => ({ ...prev, message: null, error: null }));
         
-        if (!state.otpEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.otpEmail)) {
-            setState(prev => ({ ...prev, error: 'Please enter a valid OTP email address' }));
-            return;
-        }
+    //     if (!state.otpEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.otpEmail)) {
+    //         setState(prev => ({ ...prev, error: 'Please enter a valid OTP email address' }));
+    //         return;
+    //     }
     
-        try {
-            await sendLoginOtp(state.otpEmail);
-            setState(prev => ({ ...prev, message: 'Verification code sent successfully. Please check your email.' }));
-        } catch (error) {
-            const errorMsg = error.response?.status === 404 
-                ? 'No user found with this email address'
-                : error.response?.data || error.request 
-                    ? 'Network error. Please check your connection.' 
-                    : 'An unexpected error occurred.';
-            setState(prev => ({ ...prev, error: errorMsg }));
-        }
-    };
+    //     try {
+    //         await sendLoginOtp(state.otpEmail);
+    //         setState(prev => ({ ...prev, message: 'Verification code sent successfully. Please check your email.' }));
+    //     } catch (error) {
+    //         const errorMsg = error.response?.status === 404 
+    //             ? 'No user found with this email address'
+    //             : error.response?.data || error.request 
+    //                 ? 'Network error. Please check your connection.' 
+    //                 : 'An unexpected error occurred.';
+    //         setState(prev => ({ ...prev, error: errorMsg }));
+    //     }
+    // };
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setState(prev => ({ ...prev, error: null, message: null }));
 
-        if (!state.dbEmail || !state.password || !state.otp || !state.otpEmail) {
-            setState(prev => ({ ...prev, error: 'Please fill in all required fields' }));
-            return;
-        }
+        // if (!state.dbEmail || !state.password || !state.otp || !state.otpEmail) {
+        //     setState(prev => ({ ...prev, error: 'Please fill in all required fields' }));
+        //     return;
+        // }
 
         try {
-            const userData = await verifyLoginOtp(state.dbEmail, state.otpEmail, state.otp, state.password);
+            // const userData = await verifyLoginOtp(state.dbEmail, state.otpEmail, state.otp, state.password);
             onLogin(userData);
             setState(prev => ({ ...prev, message: 'Login successful! Redirecting...' }));
             setTimeout(() => navigate(userData.role === 'JOBSEEKER' ? '/userprofile' : '/', { replace: true }), 0);

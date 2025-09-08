@@ -579,41 +579,41 @@ export const logout = async () => {
 };
 
 // OTP Operations
-export const sendLoginOtp = async (email) => {
-  try {
-    await axios.post(`${API_BASE_URL}/users/otp/login`, null, {
-      params: { email },
-      headers: { 'Content-Type': 'application/json' }
-    });
-  } catch (error) {
-    handleApiError(error, "sending login OTP");
-  }
-};
+// export const sendLoginOtp = async (email) => {
+//   try {
+//     await axios.post(`${API_BASE_URL}/users/otp/login`, null, {
+//       params: { email },
+//       headers: { 'Content-Type': 'application/json' }
+//     });
+//   } catch (error) {
+//     handleApiError(error, "sending login OTP");
+//   }
+// };
 
-export const verifyLoginOtp = async (email, otpEmail, verificationCode, password) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/users/otp/login/verify`, null, {
-      params: { email, otpEmail, verificationCode, password },
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true
-    });
-    return response.data;
-  } catch (error) {
-    handleApiError(error, "verifying login OTP");
-  }
-};
+// export const verifyLoginOtp = async (email, otpEmail, verificationCode, password) => {
+//   try {
+//     const response = await axios.post(`${API_BASE_URL}/users/otp/login/verify`, null, {
+//       params: { email, otpEmail, verificationCode, password },
+//       headers: { 'Content-Type': 'application/json' },
+//       withCredentials: true
+//     });
+//     return response.data;
+//   } catch (error) {
+//     handleApiError(error, "verifying login OTP");
+//   }
+// };
 
 // Password Reset Operations
-export const sendPasswordResetOtp = async (email, otpEmail) => {
-  try {
-    await axios.post(`${API_BASE_URL}/users/password/reset/otp`, null, {
-      params: { email, otpEmail },
-      headers: { 'Content-Type': 'application/json' }
-    });
-  } catch (error) {
-    handleApiError(error, "sending password reset OTP");
-  }
-};
+// export const sendPasswordResetOtp = async (email, otpEmail) => {
+//   try {
+//     await axios.post(`${API_BASE_URL}/users/password/reset/otp`, null, {
+//       params: { email, otpEmail },
+//       headers: { 'Content-Type': 'application/json' }
+//     });
+//   } catch (error) {
+//     handleApiError(error, "sending password reset OTP");
+//   }
+// };
 
 export const resetPassword = async (email, otpEmail, verificationCode, newPassword) => {
   try {
