@@ -58,12 +58,14 @@ const Login = ({ onLogin }) => {
             setState(prev => ({ ...prev, message: 'Login successful! Redirecting...' }));
             setTimeout(() => navigate(userData.role === 'JOBSEEKER' ? '/userprofile' : '/', { replace: true }), 0);
         } catch (error) {
+           
             const errorMsg = error.response?.status === 400 
                 ? typeof error.response.data === 'string' ? error.response.data : 'Invalid credentials or OTP'
                 : error.response?.status === 401 ? 'Unauthorized access. Please check your credentials.'
                 : error.response?.status === 500 ? 'Server error. Please try again later.'
                 : error.request ? 'Network issue. Please check your connection.'
                 : 'An unexpected error occurred.';
+            System.out.println(errorMsg);
             setState(prev => ({ ...prev, error: errorMsg }));
         }
     };
