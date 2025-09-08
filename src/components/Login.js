@@ -65,7 +65,7 @@ const Login = ({ onLogin }) => {
                 : error.response?.status === 500 ? 'Server error. Please try again later.'
                 : error.request ? 'Network issue. Please check your connection.'
                 : 'An unexpected error occurred.';
-            System.out.println(errorMsg);
+           console.error("Caught an error:", error.message); 
             setState(prev => ({ ...prev, error: errorMsg }));
         }
     };
