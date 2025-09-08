@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import { sendLoginOtp, verifyLoginOtp } from '../services/apiService';
+import {  login } from '../services/apiService';
 import { Container, TextField, Button, Typography, Box, Alert, Link } from '@mui/material';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
@@ -54,6 +55,7 @@ const Login = ({ onLogin }) => {
 
         try {
             // const userData = await verifyLoginOtp(state.dbEmail, state.otpEmail, state.otp, state.password);
+            const userData = await login(state.dbEmail,  state.password);
             onLogin(userData);
             setState(prev => ({ ...prev, message: 'Login successful! Redirecting...' }));
             setTimeout(() => navigate(userData.role === 'JOBSEEKER' ? '/userprofile' : '/', { replace: true }), 0);
@@ -136,9 +138,9 @@ const Login = ({ onLogin }) => {
                         </Box>
                     ))}
 
-                    <Button fullWidth onClick={handleSendOtp} sx={styles.button}>
+                    {/* <Button fullWidth onClick={handleSendOtp} sx={styles.button}>
                         Send OTP
-                    </Button>
+                    </Button> */}
 
                     {['otp', 'password'].map((field) => (
                         <Box key={field} mb={3}>
